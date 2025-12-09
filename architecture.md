@@ -72,6 +72,8 @@ aiofiles
 loguru
 python-multipart
 python-dotenv
+pytest-cov
+reportlab
 
 When generating or updating requirements.txt, always copy the full list of Python packages exactly as specified in architecture.md. Do not omit, add, or modify any package names. If requirements.txt already exists, replace its contents with the complete, exact list from architecture.md. Double-check that every package from architecture.md is present in requirements.txt.
 
@@ -108,5 +110,6 @@ Both backend and frontend are implemented in Python only.
 Use a Python virtual environment and install all python dependencies from backend/requirements.txt in this workspace. To run tests, use pytest from the backend/tests/ directory. Aim for at least 80% code coverage. Store secrets and configuration in environment variables, not in code.
 
 Follow this structure and instructions to avoid errors and ensure a smooth deployment.
+
 
 Let's think about this step by step.

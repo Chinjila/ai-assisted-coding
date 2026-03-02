@@ -1,0 +1,62 @@
+[
+  {
+    "name": "AZURE_OPENAI_API_KEY",
+    "value": "[replace]",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_ENDPOINT",
+    "value": "https://openaiservice-[replace].openai.azure.com/",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_DEPLOYMENT",
+    "value": "openai-model-2107591",
+    "slotSetting": false
+  },
+  {
+    "name": "AZURE_OPENAI_API_VERSION",
+    "value": "2024-02-01",
+    "slotSetting": false
+  },
+  {
+    "name": "JWT_SECRET_KEY",
+    "value": "change-me-in-production",
+    "slotSetting": false
+  },
+  {
+    "name": "JWT_ALGORITHM",
+    "value": "HS256",
+    "slotSetting": false
+  },
+  {
+    "name": "JWT_EXPIRATION_MINUTES",
+    "value": "60",
+    "slotSetting": false
+  },
+  {
+    "name": "MAX_FILE_SIZE_MB",
+    "value": "10",
+    "slotSetting": false
+  },
+  {
+    "name": "MAX_BATCH_FILES",
+    "value": "10",
+    "slotSetting": false
+  },
+  {
+    "name": "DEFAULT_SUMMARY_LENGTH",
+    "value": "medium",
+    "slotSetting": false
+  },
+  {
+    "name": "HOST",
+    "value": "0.0.0.0",
+    "slotSetting": false
+  },
+  {
+    "name": "PORT",
+    "value": "8000",
+    "slotSetting": false
+  }
+]

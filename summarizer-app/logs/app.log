@@ -177,3 +177,7 @@
 2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
 2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
 2026-03-02 16:48:42 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.
+2026-03-02 17:09:57 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 17:09:57 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 17:10:03 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 17:10:03 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.

@@ -29,6 +29,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Set Python runtime version to 3.12
+        run: |
+          az webapp config set \
+            --name ${{ secrets.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --linux-fx-version "PYTHON|3.12"
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:

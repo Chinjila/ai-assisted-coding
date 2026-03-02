@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+pydantic
+python-docx
+PyPDF2
+requests
+beautifulsoup4
+openai
+jinja2
+python-jose
+aiofiles
+loguru
+python-multipart
+python-dotenv
+pytest-cov
+reportlab

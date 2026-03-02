@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History – GenAIsummarizer</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background: #f4f6f9; color: #333;
+        }
+        a { color: #0066cc; text-decoration: none; }
+        a:focus, button:focus { outline: 3px solid #0066cc; outline-offset: 2px; }
+        nav {
+            background: #1a1a2e; color: #fff; padding: 1rem 2rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        nav h1 { margin: 0; font-size: 1.4rem; }
+        nav a { color: #aac4ff; margin-left: 1.5rem; }
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .card {
+            background: #fff; border-radius: 8px; padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;
+        }
+        h2 { margin-top: 0; }
+        .history-item { border-bottom: 1px solid #eee; padding: 0.8rem 0; }
+        .history-item:last-child { border-bottom: none; }
+        .history-meta { font-size: 0.85rem; color: #666; }
+        .summary-result {
+            background: #f0f4ff; border-left: 4px solid #0066cc;
+            padding: 1rem; border-radius: 4px; white-space: pre-wrap;
+        }
+        .empty-state { color: #888; font-style: italic; }
+        @media (max-width: 600px) {
+            nav { flex-direction: column; align-items: flex-start; }
+            nav a { margin-left: 0; margin-top: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav role="navigation" aria-label="Main navigation">
+        <h1>GenAIsummarizer</h1>
+        <div>
+            <a href="/" aria-label="Dashboard">Dashboard</a>
+            <a href="/history" aria-label="History">History</a>
+        </div>
+    </nav>
+
+    <main class="container" role="main">
+        <div class="card">
+            <h2>Summary History</h2>
+            {% if history %}
+                {% for item in history %}
+                <div class="history-item">
+                    <div class="summary-result">{{ item.summary }}</div>
+                    <div class="history-meta">Length: {{ item.summary_length }} | {{ item.timestamp }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty-state">No summaries yet. Go to the <a href="/">Dashboard</a> to create your first summary.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

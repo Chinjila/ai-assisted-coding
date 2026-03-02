@@ -1,0 +1,8 @@
+2026-03-02 15:47:41 | INFO     | backend.app.main:<module>:32 | user=system | GenAIsummarizer application started.
+2026-03-02 15:47:54 | ERROR    | backend.app.summarizer.engine:summarize_text:69 | user=system | Summarisation failed: Connection error.
+2026-03-02 15:47:54 | ERROR    | backend.app.ui:ui_summarize:82 | user=system | UI summarisation error: Summarisation failed: Connection error.
+2026-03-02 15:50:30 | INFO     | backend.app.main:<module>:32 | user=system | GenAIsummarizer application started.
+2026-03-02 15:53:43 | WARNING  | backend.app.main:<module>:23 | user=system | Missing Azure OpenAI env vars: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT – summarisation will fail until credentials are provided.
+2026-03-02 15:53:43 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 15:55:16 | WARNING  | backend.app.main:<module>:23 | user=system | Missing Azure OpenAI env vars: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT – summarisation will fail until credentials are provided.
+2026-03-02 15:55:17 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.

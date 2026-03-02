@@ -13,4 +13,5 @@ loguru
 python-multipart
 python-dotenv
 pytest-cov
+pytest-asyncio
 reportlab

@@ -1,34 +1,24 @@
 """
 REST API endpoints for summarisation, batch processing, history, and auth.
+
+Routing only – all business logic is delegated to the summarizer service.
 """
 
 from __future__ import annotations
 
-import uuid
 from datetime import datetime, timedelta
-from typing import List, Optional
+from typing import List
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from jose import JWTError, jwt
 from pydantic import BaseModel
 
 from backend.app import config
-from backend.app.errors import (
-    AuthenticationError,
-    BatchLimitError,
-    FileSizeError,
-)
+from backend.app.errors import AuthenticationError, SummarizerError
 from backend.app.logger import get_logger
-from backend.app.summarizer.engine import summarize_text
-from backend.app.summarizer.utils import extract_text_from_file, extract_text_from_url
+from backend.app.summarizer import service as summarizer_service
 
 router = APIRouter()
-
-# ---------------------------------------------------------------------------
-# In-memory stores (replace with a database for production)
-# ---------------------------------------------------------------------------
-summary_history: dict[str, list] = {}  # user_id -> [summaries]
-
 logger = get_logger()
 
 
@@ -98,37 +88,31 @@ async def get_token(request: TokenRequest):
 @router.post("/summarize/text", response_model=SummaryResponse)
 async def summarize_plain_text(request: TextSummarizeRequest):
     """Summarise plain text input."""
-    if request.summary_length not in config.ALLOWED_SUMMARY_LENGTHS:
-        raise HTTPException(status_code=400, detail="Invalid summary_length. Choose short, medium, or long.")
-
-    summary = await summarize_text(request.text, request.summary_length)
-    timestamp = datetime.utcnow().isoformat()
-
-    # Store in history
-    user_id = "anonymous"
-    summary_history.setdefault(user_id, []).append(
-        {"summary": summary, "summary_length": request.summary_length, "timestamp": timestamp}
-    )
-
-    return SummaryResponse(summary=summary, summary_length=request.summary_length, timestamp=timestamp)
+    try:
+        result = await summarizer_service.summarize_from_text(
+            text=request.text, summary_length=request.summary_length,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    except SummarizerError as exc:
+        logger.error(f"API /summarize/text failed: {exc.message}")
+        raise HTTPException(status_code=exc.status_code, detail=exc.message)
+    return SummaryResponse(**result)
 
 
 @router.post("/summarize/url", response_model=SummaryResponse)
 async def summarize_url(request: URLSummarizeRequest):
     """Summarise content from a web URL."""
-    if request.summary_length not in config.ALLOWED_SUMMARY_LENGTHS:
-        raise HTTPException(status_code=400, detail="Invalid summary_length. Choose short, medium, or long.")
-
-    text = extract_text_from_url(request.url)
-    summary = await summarize_text(text, request.summary_length)
-    timestamp = datetime.utcnow().isoformat()
-
-    user_id = "anonymous"
-    summary_history.setdefault(user_id, []).append(
-        {"summary": summary, "summary_length": request.summary_length, "timestamp": timestamp}
-    )
-
-    return SummaryResponse(summary=summary, summary_length=request.summary_length, timestamp=timestamp)
+    try:
+        result = await summarizer_service.summarize_from_url(
+            url=request.url, summary_length=request.summary_length,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    except SummarizerError as exc:
+        logger.error(f"API /summarize/url failed: {exc.message}")
+        raise HTTPException(status_code=exc.status_code, detail=exc.message)
+    return SummaryResponse(**result)
 
 
 @router.post("/summarize/file", response_model=SummaryResponse)
@@ -137,23 +121,19 @@ async def summarize_file(
     summary_length: str = Form(config.DEFAULT_SUMMARY_LENGTH),
 ):
     """Summarise an uploaded file (PDF, DOCX, or TXT)."""
-    if summary_length not in config.ALLOWED_SUMMARY_LENGTHS:
-        raise HTTPException(status_code=400, detail="Invalid summary_length. Choose short, medium, or long.")
-
     contents = await file.read()
-    if len(contents) > config.MAX_FILE_SIZE_MB * 1024 * 1024:
-        raise FileSizeError()
-
-    text = extract_text_from_file(file.filename or "file.txt", contents)
-    summary = await summarize_text(text, summary_length)
-    timestamp = datetime.utcnow().isoformat()
-
-    user_id = "anonymous"
-    summary_history.setdefault(user_id, []).append(
-        {"summary": summary, "summary_length": summary_length, "timestamp": timestamp}
-    )
-
-    return SummaryResponse(summary=summary, summary_length=summary_length, timestamp=timestamp)
+    try:
+        result = await summarizer_service.summarize_from_file(
+            filename=file.filename or "file.txt",
+            contents=contents,
+            summary_length=summary_length,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    except SummarizerError as exc:
+        logger.error(f"API /summarize/file failed: {exc.message}")
+        raise HTTPException(status_code=exc.status_code, detail=exc.message)
+    return SummaryResponse(**result)
 
 
 @router.post("/summarize/batch")
@@ -162,27 +142,23 @@ async def summarize_batch(
     summary_length: str = Form(config.DEFAULT_SUMMARY_LENGTH),
 ):
     """Batch-summarise up to 10 files."""
-    if len(files) > config.MAX_BATCH_FILES:
-        raise BatchLimitError()
-
-    results = []
+    file_tuples = []
     for file in files:
         contents = await file.read()
-        if len(contents) > config.MAX_FILE_SIZE_MB * 1024 * 1024:
-            results.append({"file": file.filename, "error": "File exceeds 10MB limit."})
-            continue
-        text = extract_text_from_file(file.filename or "file.txt", contents)
-        summary = await summarize_text(text, summary_length)
-        timestamp = datetime.utcnow().isoformat()
-        results.append(
-            {"file": file.filename, "summary": summary, "summary_length": summary_length, "timestamp": timestamp}
-        )
+        file_tuples.append((file.filename or "file.txt", contents))
 
+    try:
+        results = await summarizer_service.summarize_batch(
+            files=file_tuples, summary_length=summary_length,
+        )
+    except SummarizerError as exc:
+        logger.error(f"API /summarize/batch failed: {exc.message}")
+        raise HTTPException(status_code=exc.status_code, detail=exc.message)
     return {"results": results, "success": True}
 
 
 @router.get("/history")
 async def get_history(user_id: str = "anonymous"):
     """Retrieve summary history for a user."""
-    history = summary_history.get(user_id, [])
+    history = summarizer_service.get_history(user_id)
     return {"user_id": user_id, "history": history, "success": True}

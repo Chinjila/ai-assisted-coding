@@ -198,13 +198,26 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    showError(data.detail || data.error || "Request failed.");
+                    const msg = data.detail || data.error || "Request failed.";
+                    if (response.status === 413) {
+                        showError("The file you uploaded is too large. Maximum size is 10 MB.");
+                    } else if (response.status === 401) {
+                        showError("Authentication failed. Please check your credentials.");
+                    } else if (response.status === 503 || response.status === 429) {
+                        showError("The summarisation service is temporarily busy. Please try again in a moment.");
+                    } else {
+                        showError(msg);
+                    }
                     return;
                 }
 
                 showSuccess(data.summary, data.summary_length, data.timestamp);
             } catch (err) {
-                showError("Network error: " + err.message);
+                if (err.name === "TypeError" || err.message.includes("Failed to fetch")) {
+                    showError("Unable to reach the server. Please check your connection and try again.");
+                } else {
+                    showError("Network error: " + err.message);
+                }
             } finally {
                 loading.style.display = "none";
                 submitBtn.disabled = false;

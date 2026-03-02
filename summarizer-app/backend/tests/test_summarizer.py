@@ -73,7 +73,8 @@ class TestExtractTextFromURL:
 
     @patch("backend.app.summarizer.utils.requests.get")
     def test_url_fetch_error(self, mock_get):
-        mock_get.side_effect = Exception("Connection error")
+        import requests as req
+        mock_get.side_effect = req.exceptions.ConnectionError("Connection error")
         with pytest.raises(URLFetchError):
             extract_text_from_url("https://invalid-url.com")
 
@@ -117,3 +118,89 @@ class TestSummarizeText:
     async def test_summarize_whitespace_only(self):
         with pytest.raises(SummarizationError):
             await summarize_text("   ", "medium")
+
+
+class TestRetryLogic:
+    """Tests for exponential backoff retry in engine.summarize_text."""
+
+    @pytest.mark.asyncio
+    @patch("backend.app.summarizer.engine.asyncio.sleep", new_callable=AsyncMock)
+    @patch("backend.app.summarizer.engine._get_client")
+    async def test_retries_on_transient_error_then_succeeds(self, mock_get_client, mock_sleep):
+        """Engine retries on APIConnectionError and succeeds on 2nd attempt."""
+        from openai import APIConnectionError
+
+        mock_choice = MagicMock()
+        mock_choice.message.content = "Retry success summary"
+        mock_response = MagicMock()
+        mock_response.choices = [mock_choice]
+
+        mock_client = AsyncMock()
+        mock_client.chat.completions.create = AsyncMock(
+            side_effect=[APIConnectionError(request=MagicMock()), mock_response]
+        )
+        mock_get_client.return_value = mock_client
+
+        result = await summarize_text("Some text", "short")
+        assert result == "Retry success summary"
+        assert mock_sleep.await_count == 1  # slept once between attempts
+
+    @pytest.mark.asyncio
+    @patch("backend.app.summarizer.engine.asyncio.sleep", new_callable=AsyncMock)
+    @patch("backend.app.summarizer.engine._get_client")
+    async def test_retries_exhausted_raises_friendly_error(self, mock_get_client, mock_sleep):
+        """Engine raises SummarizationError with friendly message after all retries fail."""
+        from openai import APIConnectionError
+
+        mock_client = AsyncMock()
+        mock_client.chat.completions.create = AsyncMock(
+            side_effect=APIConnectionError(request=MagicMock())
+        )
+        mock_get_client.return_value = mock_client
+
+        with pytest.raises(SummarizationError, match="temporarily unavailable"):
+            await summarize_text("Some text", "medium")
+
+    @pytest.mark.asyncio
+    @patch("backend.app.summarizer.engine._get_client")
+    async def test_auth_error_not_retried(self, mock_get_client):
+        """Authentication errors are raised immediately, not retried."""
+        from openai import AuthenticationError as OpenAIAuthError
+        from httpx import Response, Request
+
+        mock_response = Response(status_code=401, request=Request("POST", "https://test"))
+        mock_client = AsyncMock()
+        mock_client.chat.completions.create = AsyncMock(
+            side_effect=OpenAIAuthError(
+                message="Invalid API key", response=mock_response, body=None
+            )
+        )
+        mock_get_client.return_value = mock_client
+
+        with pytest.raises(SummarizationError, match="Authentication.*failed"):
+            await summarize_text("Some text", "short")
+        # Should have been called only once (no retries)
+        assert mock_client.chat.completions.create.await_count == 1
+
+    @pytest.mark.asyncio
+    @patch("backend.app.summarizer.engine.asyncio.sleep", new_callable=AsyncMock)
+    @patch("backend.app.summarizer.engine._get_client")
+    async def test_exponential_backoff_delays(self, mock_get_client, mock_sleep):
+        """Verify that retry delays follow exponential backoff."""
+        from openai import APITimeoutError
+
+        mock_client = AsyncMock()
+        mock_client.chat.completions.create = AsyncMock(
+            side_effect=APITimeoutError(request=MagicMock())
+        )
+        mock_get_client.return_value = mock_client
+
+        with pytest.raises(SummarizationError):
+            await summarize_text("Some text", "short")
+
+        # Default: 3 attempts → 2 sleeps (after attempt 1 and 2, not after final)
+        calls = mock_sleep.call_args_list
+        assert len(calls) == 2
+        # First delay = 1.0s, second delay = 2.0s (base * 2^(attempt-1))
+        assert calls[0][0][0] == pytest.approx(1.0)
+        assert calls[1][0][0] == pytest.approx(2.0)

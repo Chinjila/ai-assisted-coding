@@ -25,9 +25,13 @@ class TestTokenEndpoint:
 class TestSummarizeTextEndpoint:
     """Tests for /api/summarize/text."""
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
-    def test_summarize_text_success(self, mock_summarize):
-        mock_summarize.return_value = "This is a summary."
+    @patch("backend.app.summarizer.service.summarize_from_text", new_callable=AsyncMock)
+    def test_summarize_text_success(self, mock_service):
+        mock_service.return_value = {
+            "summary": "This is a summary.",
+            "summary_length": "short",
+            "timestamp": "2025-01-01T00:00:00",
+        }
         response = client.post(
             "/api/summarize/text",
             json={"text": "Some long text to summarize.", "summary_length": "short"},
@@ -49,11 +53,13 @@ class TestSummarizeTextEndpoint:
 class TestSummarizeURLEndpoint:
     """Tests for /api/summarize/url."""
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
-    @patch("backend.app.api.extract_text_from_url")
-    def test_summarize_url_success(self, mock_extract, mock_summarize):
-        mock_extract.return_value = "Extracted web text."
-        mock_summarize.return_value = "URL summary."
+    @patch("backend.app.summarizer.service.summarize_from_url", new_callable=AsyncMock)
+    def test_summarize_url_success(self, mock_service):
+        mock_service.return_value = {
+            "summary": "URL summary.",
+            "summary_length": "medium",
+            "timestamp": "2025-01-01T00:00:00",
+        }
         response = client.post(
             "/api/summarize/url",
             json={"url": "https://example.com", "summary_length": "medium"},
@@ -66,11 +72,13 @@ class TestSummarizeURLEndpoint:
 class TestSummarizeFileEndpoint:
     """Tests for /api/summarize/file."""
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
-    @patch("backend.app.api.extract_text_from_file")
-    def test_summarize_file_success(self, mock_extract, mock_summarize):
-        mock_extract.return_value = "File content text."
-        mock_summarize.return_value = "File summary."
+    @patch("backend.app.summarizer.service.summarize_from_file", new_callable=AsyncMock)
+    def test_summarize_file_success(self, mock_service):
+        mock_service.return_value = {
+            "summary": "File summary.",
+            "summary_length": "short",
+            "timestamp": "2025-01-01T00:00:00",
+        }
         response = client.post(
             "/api/summarize/file",
             files={"file": ("test.txt", b"Some file content", "text/plain")},
@@ -84,11 +92,12 @@ class TestSummarizeFileEndpoint:
 class TestBatchEndpoint:
     """Tests for /api/summarize/batch."""
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
-    @patch("backend.app.api.extract_text_from_file")
-    def test_batch_summarize_success(self, mock_extract, mock_summarize):
-        mock_extract.return_value = "Extracted text."
-        mock_summarize.return_value = "Batch summary."
+    @patch("backend.app.summarizer.service.summarize_batch", new_callable=AsyncMock)
+    def test_batch_summarize_success(self, mock_service):
+        mock_service.return_value = [
+            {"file": "file1.txt", "summary": "Summary 1", "summary_length": "short", "timestamp": "2025-01-01T00:00:00"},
+            {"file": "file2.txt", "summary": "Summary 2", "summary_length": "short", "timestamp": "2025-01-01T00:00:00"},
+        ]
         files = [
             ("files", ("file1.txt", b"Content 1", "text/plain")),
             ("files", ("file2.txt", b"Content 2", "text/plain")),
@@ -99,7 +108,10 @@ class TestBatchEndpoint:
         assert data["success"] is True
         assert len(data["results"]) == 2
 
-    def test_batch_exceeds_limit(self):
+    @patch("backend.app.summarizer.service.summarize_batch", new_callable=AsyncMock)
+    def test_batch_exceeds_limit(self, mock_service):
+        from backend.app.errors import BatchLimitError
+        mock_service.side_effect = BatchLimitError()
         files = [("files", (f"file{i}.txt", b"Content", "text/plain")) for i in range(11)]
         response = client.post("/api/summarize/batch", files=files, data={"summary_length": "short"})
         assert response.status_code == 400
@@ -108,9 +120,61 @@ class TestBatchEndpoint:
 class TestHistoryEndpoint:
     """Tests for /api/history."""
 
-    def test_get_history(self):
+    @patch("backend.app.summarizer.service.get_history")
+    def test_get_history(self, mock_history):
+        mock_history.return_value = []
         response = client.get("/api/history?user_id=anonymous")
         assert response.status_code == 200
         data = response.json()
         assert "history" in data
         assert data["success"] is True
+
+
+class TestAPIErrorResponses:
+    """Tests that API returns user-friendly error messages."""
+
+    @patch("backend.app.summarizer.service.summarize_from_text", new_callable=AsyncMock)
+    def test_summarization_error_returns_friendly_message(self, mock_service):
+        from backend.app.errors import SummarizationError
+        mock_service.side_effect = SummarizationError(
+            "The summarisation service is temporarily unavailable after 3 attempts. "
+            "Please try again in a few moments."
+        )
+        response = client.post(
+            "/api/summarize/text",
+            json={"text": "Some text.", "summary_length": "short"},
+        )
+        assert response.status_code == 500
+        data = response.json()
+        assert "temporarily unavailable" in data["detail"]
+
+    @patch("backend.app.summarizer.service.summarize_from_url", new_callable=AsyncMock)
+    def test_url_fetch_error_returns_friendly_message(self, mock_service):
+        from backend.app.errors import URLFetchError
+        mock_service.side_effect = URLFetchError(
+            "Could not retrieve content from 'https://bad.url'. "
+            "Please check the URL and try again."
+        )
+        response = client.post(
+            "/api/summarize/url",
+            json={"url": "https://bad.url", "summary_length": "short"},
+        )
+        assert response.status_code == 400
+        data = response.json()
+        assert "Could not retrieve" in data["detail"]
+
+    @patch("backend.app.summarizer.service.summarize_from_file", new_callable=AsyncMock)
+    def test_file_format_error_returns_friendly_message(self, mock_service):
+        from backend.app.errors import FileFormatError
+        mock_service.side_effect = FileFormatError(
+            "Could not read the file 'image.png'. "
+            "Please ensure it is a valid PDF, DOCX, or TXT file."
+        )
+        response = client.post(
+            "/api/summarize/file",
+            files={"file": ("image.png", b"\x89PNG", "image/png")},
+            data={"summary_length": "short"},
+        )
+        assert response.status_code == 400
+        data = response.json()
+        assert "Could not read the file" in data["detail"]

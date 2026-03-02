@@ -1,22 +1,22 @@
 """
 Web UI backend – serves the dashboard, upload forms, and history views
-using Jinja2 templates. Communicates with the summariser engine directly.
+using Jinja2 templates.
+
+Routing only – all business logic is delegated to the summarizer service.
 """
 
 from __future__ import annotations
 
 import os
-from datetime import datetime
 
 from fastapi import APIRouter, File, Form, Request, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from backend.app import config
-from backend.app.errors import FileSizeError
+from backend.app.errors import SummarizerError
 from backend.app.logger import get_logger
-from backend.app.summarizer.engine import summarize_text
-from backend.app.summarizer.utils import extract_text_from_file, extract_text_from_url
+from backend.app.summarizer import service as summarizer_service
 
 router = APIRouter()
 logger = get_logger()
@@ -25,16 +25,14 @@ logger = get_logger()
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "templates")
 templates = Jinja2Templates(directory=TEMPLATE_DIR)
 
-# In-memory history for the UI (shared with the demo)
-ui_history: list[dict] = []
-
 
 @router.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
     """Render the main dashboard."""
+    history = summarizer_service.get_history("ui_user")
     return templates.TemplateResponse(
         "dashboard.html",
-        {"request": request, "history": ui_history, "summary": None, "error": None},
+        {"request": request, "history": history, "summary": None, "error": None},
     )
 
 
@@ -49,48 +47,61 @@ async def ui_summarize(
     """Handle summarisation from the web UI form."""
     error = None
     summary = None
+    user_id = "ui_user"
 
     try:
         if file and file.filename:
             contents = await file.read()
-            if len(contents) > config.MAX_FILE_SIZE_MB * 1024 * 1024:
-                raise FileSizeError()
-            extracted = extract_text_from_file(file.filename, contents)
+            result = await summarizer_service.summarize_from_file(
+                filename=file.filename,
+                contents=contents,
+                summary_length=summary_length,
+                user_id=user_id,
+            )
         elif url:
-            extracted = extract_text_from_url(url)
+            result = await summarizer_service.summarize_from_url(
+                url=url,
+                summary_length=summary_length,
+                user_id=user_id,
+            )
         elif text:
-            extracted = text
+            result = await summarizer_service.summarize_from_text(
+                text=text,
+                summary_length=summary_length,
+                user_id=user_id,
+            )
         else:
             error = "Please provide text, a URL, or upload a file."
+            history = summarizer_service.get_history(user_id)
             return templates.TemplateResponse(
                 "dashboard.html",
-                {"request": request, "history": ui_history, "summary": None, "error": error},
+                {"request": request, "history": history, "summary": None, "error": error},
             )
 
-        summary = await summarize_text(extracted, summary_length)
-        ui_history.insert(
-            0,
-            {
-                "summary": summary,
-                "summary_length": summary_length,
-                "timestamp": datetime.utcnow().isoformat(),
-            },
-        )
+        summary = result["summary"]
         logger.info(f"UI summarisation completed – length={summary_length}")
-    except Exception as exc:
-        error = str(exc)
+    except SummarizerError as exc:
+        error = exc.message
         logger.error(f"UI summarisation error: {error}")
+    except ValueError as exc:
+        error = str(exc)
+        logger.warning(f"UI validation error: {error}")
+    except Exception as exc:
+        error = "An unexpected error occurred. Please try again later."
+        logger.error(f"UI unexpected error: {type(exc).__name__}: {exc}")
 
+    history = summarizer_service.get_history(user_id)
     return templates.TemplateResponse(
         "dashboard.html",
-        {"request": request, "history": ui_history, "summary": summary, "error": error},
+        {"request": request, "history": history, "summary": summary, "error": error},
     )
 
 
 @router.get("/history", response_class=HTMLResponse)
 async def ui_history_page(request: Request):
     """Render the history page."""
+    history = summarizer_service.get_history("ui_user")
     return templates.TemplateResponse(
         "history.html",
-        {"request": request, "history": ui_history},
+        {"request": request, "history": history},
     )

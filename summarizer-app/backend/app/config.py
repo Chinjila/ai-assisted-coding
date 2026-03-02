@@ -27,6 +27,11 @@ MAX_BATCH_FILES = int(os.getenv("MAX_BATCH_FILES", "10"))
 DEFAULT_SUMMARY_LENGTH = os.getenv("DEFAULT_SUMMARY_LENGTH", "medium")
 ALLOWED_SUMMARY_LENGTHS = ["short", "medium", "long"]
 
+# Retry settings for Azure OpenAI calls
+RETRY_MAX_ATTEMPTS = int(os.getenv("RETRY_MAX_ATTEMPTS", "3"))
+RETRY_BASE_DELAY_SECONDS = float(os.getenv("RETRY_BASE_DELAY_SECONDS", "1.0"))
+RETRY_MAX_DELAY_SECONDS = float(os.getenv("RETRY_MAX_DELAY_SECONDS", "10.0"))
+
 # Server settings
 HOST = os.getenv("HOST", "127.0.0.1")
 PORT = int(os.getenv("PORT", "8000"))

@@ -7,7 +7,7 @@ from unittest.mock import AsyncMock, patch
 from fastapi.testclient import TestClient
 
 from backend.app.main import app
-from backend.app import api
+from backend.app.summarizer import service as summarizer_service
 
 client = TestClient(app)
 
@@ -17,7 +17,7 @@ class TestHistoryTracking:
 
     def setup_method(self):
         """Clear history before each test."""
-        api.summary_history.clear()
+        summarizer_service.clear_history()
 
     def test_history_empty_initially(self):
         response = client.get("/api/history?user_id=testuser")
@@ -25,7 +25,7 @@ class TestHistoryTracking:
         data = response.json()
         assert data["history"] == []
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
+    @patch("backend.app.summarizer.service.summarize_text", new_callable=AsyncMock)
     def test_history_populated_after_summarize(self, mock_summarize):
         mock_summarize.return_value = "A test summary."
         client.post(
@@ -39,7 +39,7 @@ class TestHistoryTracking:
         assert data["history"][-1]["summary"] == "A test summary."
         assert data["history"][-1]["summary_length"] == "short"
 
-    @patch("backend.app.api.summarize_text", new_callable=AsyncMock)
+    @patch("backend.app.summarizer.service.summarize_text", new_callable=AsyncMock)
     def test_history_records_multiple(self, mock_summarize):
         mock_summarize.side_effect = ["Summary 1", "Summary 2"]
         client.post("/api/summarize/text", json={"text": "Text 1", "summary_length": "short"})

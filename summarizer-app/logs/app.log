@@ -6,3 +6,74 @@
 2026-03-02 15:53:43 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
 2026-03-02 15:55:16 | WARNING  | backend.app.main:<module>:23 | user=system | Missing Azure OpenAI env vars: AZURE_OPENAI_API_KEY, AZURE_OPENAI_ENDPOINT – summarisation will fail until credentials are provided.
 2026-03-02 15:55:17 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:27:43 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:27:43 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:27:43 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 16:27:44 | INFO     | backend.app.summarizer.service:summarize_from_text:83 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:27:44 | INFO     | backend.app.summarizer.service:summarize_from_text:83 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:27:44 | INFO     | backend.app.summarizer.service:summarize_from_text:83 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 16:27:44 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 16:27:44 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 16:32:26 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:32:26 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:33:00 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://www.worldjournal.com
+2026-03-02 16:33:03 | INFO     | backend.app.summarizer.engine:summarize_text:75 | user=system | Summary generated – length=medium, chars=80
+2026-03-02 16:33:03 | INFO     | backend.app.summarizer.service:summarize_from_url:101 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 16:33:17 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://www.cnn.com
+2026-03-02 16:33:23 | INFO     | backend.app.summarizer.engine:summarize_text:75 | user=system | Summary generated – length=medium, chars=1484
+2026-03-02 16:33:23 | INFO     | backend.app.summarizer.service:summarize_from_url:101 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 16:33:41 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://www.netflix.com
+2026-03-02 16:33:44 | INFO     | backend.app.summarizer.engine:summarize_text:75 | user=system | Summary generated – length=medium, chars=777
+2026-03-02 16:33:44 | INFO     | backend.app.summarizer.service:summarize_from_url:101 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 16:35:33 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:35:33 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:36:13 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:36:14 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:36:26 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:36:26 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:36:34 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:36:34 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:36:44 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:36:44 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:36:54 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:36:54 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:37:03 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:37:03 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:37:29 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:37:30 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:37:40 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:37:40 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:37:47 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:37:47 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:40:29 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:40:29 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:41:13 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:41:13 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:41:37 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:41:37 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:41:56 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:41:56 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:42:13 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:42:13 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:42:14 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 16:42:14 | ERROR    | backend.app.api:summarize_batch:155 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 16:42:14 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 16:42:14 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 16:42:14 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 16:42:15 | INFO     | backend.app.summarizer.engine:summarize_text:97 | user=system | Summary generated – length=short, chars=17
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 16:42:16 | INFO     | backend.app.summarizer.engine:summarize_text:97 | user=system | Summary generated – length=short, chars=21 (after 2 attempt(s))
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APIConnectionError: Connection error. – retrying in 2.0s
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APIConnectionError: Connection error. – retrying in 4.0s
+2026-03-02 16:42:16 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APIConnectionError: Connection error.
+2026-03-02 16:42:16 | ERROR    | backend.app.summarizer.engine:summarize_text:117 | user=system | Azure OpenAI authentication failed: Invalid API key
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APITimeoutError: Request timed out. – retrying in 1.0s
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
+2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
+2026-03-02 16:42:16 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.

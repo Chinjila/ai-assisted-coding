@@ -77,3 +77,103 @@
 2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
 2026-03-02 16:42:16 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
 2026-03-02 16:42:16 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.
+2026-03-02 16:48:12 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 16:48:12 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=medium, user=u1
+2026-03-02 16:48:13 | ERROR    | backend.app.summarizer.service:summarize_from_text:90 | user=system | Service: unexpected error during text summarisation – user=anonymous: kaboom
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_url:133 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_url:133 | user=system | Service: URL summarised – length=short, user=u2
+2026-03-02 16:48:13 | ERROR    | backend.app.summarizer.service:summarize_from_url:115 | user=system | Service: failed to fetch URL 'https://bad.url' – user=anonymous: DNS failure
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'notes.txt' summarised – length=short, user=u3
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'report.pdf' summarised – length=medium, user=anonymous
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'doc.docx' summarised – length=long, user=anonymous
+2026-03-02 16:48:13 | ERROR    | backend.app.summarizer.service:summarize_from_file:153 | user=system | Service: failed to extract text from 'report.pdf' – user=anonymous: out of memory
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'f.txt' summarised – length=short, user=u4
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=medium, user=anonymous
+2026-03-02 16:48:13 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 16:48:14 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 2 files processed – user=anonymous
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'good.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:15 | WARNING  | backend.app.summarizer.service:summarize_batch:200 | user=system | Service: batch – unsupported file 'bad.png' – user=anonymous: Unsupported file format: .png
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'also_good.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:15 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 3 files processed – user=anonymous
+2026-03-02 16:48:16 | WARNING  | backend.app.summarizer.service:summarize_batch:197 | user=system | Service: batch – file 'big.txt' exceeds size limit – user=anonymous
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 1 files processed – user=anonymous
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'a.txt' summarised – length=short, user=batch_user
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'b.txt' summarised – length=short, user=batch_user
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 2 files processed – user=batch_user
+2026-03-02 16:48:16 | ERROR    | backend.app.summarizer.service:summarize_batch:203 | user=system | Service: batch – summarisation failed for 'f.txt' – user=anonymous: temporarily unavailable
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 1 files processed – user=anonymous
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=bob
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=u1
+2026-03-02 16:48:16 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:16 | ERROR    | backend.app.summarizer.service:summarize_from_text:90 | user=system | Service: unexpected error during text summarisation – user=anonymous: segfault
+2026-03-02 16:48:16 | ERROR    | backend.app.summarizer.service:summarize_from_url:126 | user=system | Service: unexpected error summarising URL 'https://x.com' – user=anonymous: segfault
+2026-03-02 16:48:16 | ERROR    | backend.app.summarizer.service:summarize_from_file:164 | user=system | Service: unexpected error summarising file 'f.txt' – user=anonymous: segfault
+2026-03-02 16:48:21 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:48:21 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:48:36 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 16:48:36 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 16:48:37 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 16:48:37 | ERROR    | backend.app.api:summarize_batch:155 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 16:48:37 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 16:48:37 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 16:48:37 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 16:48:38 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:38 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:38 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 16:48:39 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 16:48:39 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=medium, user=u1
+2026-03-02 16:48:40 | ERROR    | backend.app.summarizer.service:summarize_from_text:90 | user=system | Service: unexpected error during text summarisation – user=anonymous: kaboom
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_url:133 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_url:133 | user=system | Service: URL summarised – length=short, user=u2
+2026-03-02 16:48:40 | ERROR    | backend.app.summarizer.service:summarize_from_url:115 | user=system | Service: failed to fetch URL 'https://bad.url' – user=anonymous: DNS failure
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'notes.txt' summarised – length=short, user=u3
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'report.pdf' summarised – length=medium, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'doc.docx' summarised – length=long, user=anonymous
+2026-03-02 16:48:40 | ERROR    | backend.app.summarizer.service:summarize_from_file:153 | user=system | Service: failed to extract text from 'report.pdf' – user=anonymous: out of memory
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'f.txt' summarised – length=short, user=u4
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=medium, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 2 files processed – user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'good.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:40 | WARNING  | backend.app.summarizer.service:summarize_batch:200 | user=system | Service: batch – unsupported file 'bad.png' – user=anonymous: Unsupported file format: .png
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'also_good.txt' summarised – length=short, user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 3 files processed – user=anonymous
+2026-03-02 16:48:40 | WARNING  | backend.app.summarizer.service:summarize_batch:197 | user=system | Service: batch – file 'big.txt' exceeds size limit – user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 1 files processed – user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'a.txt' summarised – length=short, user=batch_user
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_file:173 | user=system | Service: file 'b.txt' summarised – length=short, user=batch_user
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 2 files processed – user=batch_user
+2026-03-02 16:48:40 | ERROR    | backend.app.summarizer.service:summarize_batch:203 | user=system | Service: batch – summarisation failed for 'f.txt' – user=anonymous: temporarily unavailable
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_batch:209 | user=system | Service: batch of 1 files processed – user=anonymous
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=bob
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=long, user=u1
+2026-03-02 16:48:40 | INFO     | backend.app.summarizer.service:summarize_from_text:97 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 16:48:41 | ERROR    | backend.app.summarizer.service:summarize_from_text:90 | user=system | Service: unexpected error during text summarisation – user=anonymous: segfault
+2026-03-02 16:48:41 | ERROR    | backend.app.summarizer.service:summarize_from_url:126 | user=system | Service: unexpected error summarising URL 'https://x.com' – user=anonymous: segfault
+2026-03-02 16:48:41 | ERROR    | backend.app.summarizer.service:summarize_from_file:164 | user=system | Service: unexpected error summarising file 'f.txt' – user=anonymous: segfault
+2026-03-02 16:48:41 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 16:48:41 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 16:48:42 | INFO     | backend.app.summarizer.engine:summarize_text:97 | user=system | Summary generated – length=short, chars=17
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 16:48:42 | INFO     | backend.app.summarizer.engine:summarize_text:97 | user=system | Summary generated – length=short, chars=21 (after 2 attempt(s))
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APIConnectionError: Connection error. – retrying in 2.0s
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APIConnectionError: Connection error. – retrying in 4.0s
+2026-03-02 16:48:42 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APIConnectionError: Connection error.
+2026-03-02 16:48:42 | ERROR    | backend.app.summarizer.engine:summarize_text:117 | user=system | Azure OpenAI authentication failed: Invalid API key
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 1/3): APITimeoutError: Request timed out. – retrying in 1.0s
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
+2026-03-02 16:48:42 | WARNING  | backend.app.summarizer.engine:summarize_text:109 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
+2026-03-02 16:48:42 | ERROR    | backend.app.summarizer.engine:summarize_text:139 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.

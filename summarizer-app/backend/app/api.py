@@ -15,7 +15,7 @@ from pydantic import BaseModel
 
 from backend.app import config
 from backend.app.errors import AuthenticationError, SummarizerError
-from backend.app.logger import get_logger
+from backend.app.logger import get_logger, audit_log
 from backend.app.summarizer import service as summarizer_service
 
 router = APIRouter()
@@ -140,21 +140,55 @@ async def summarize_file(
 async def summarize_batch(
     files: List[UploadFile] = File(...),
     summary_length: str = Form(config.DEFAULT_SUMMARY_LENGTH),
+    user_id: str = Form("anonymous"),
 ):
-    """Batch-summarise up to 10 files."""
+    """Batch-summarise up to 10 files.
+
+    All actions and errors are logged for audit and debugging.
+    Returns per-file results with user-friendly error messages.
+    """
     file_tuples = []
+    filenames = []
     for file in files:
         contents = await file.read()
-        file_tuples.append((file.filename or "file.txt", contents))
+        fname = file.filename or "file.txt"
+        file_tuples.append((fname, contents))
+        filenames.append(fname)
+
+    audit_log(
+        action="api_batch_request",
+        user_id=user_id,
+        details=f"file_count={len(files)}, files={filenames}, summary_length={summary_length}",
+    )
 
     try:
         results = await summarizer_service.summarize_batch(
-            files=file_tuples, summary_length=summary_length,
+            files=file_tuples, summary_length=summary_length, user_id=user_id,
         )
     except SummarizerError as exc:
         logger.error(f"API /summarize/batch failed: {exc.message}")
+        audit_log(
+            action="api_batch_error",
+            user_id=user_id,
+            error=exc.message,
+            level="ERROR",
+        )
         raise HTTPException(status_code=exc.status_code, detail=exc.message)
-    return {"results": results, "success": True}
+
+    succeeded = sum(1 for r in results if "error" not in r)
+    failed = sum(1 for r in results if "error" in r)
+    audit_log(
+        action="api_batch_response",
+        user_id=user_id,
+        details=f"total={len(results)}, succeeded={succeeded}, failed={failed}",
+    )
+    return {
+        "results": results,
+        "total": len(results),
+        "succeeded": succeeded,
+        "failed": failed,
+        "success": True,
+    }
 
 
 @router.get("/history")

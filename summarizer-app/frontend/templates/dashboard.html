@@ -125,6 +125,26 @@
             </form>
         </div>
 
+        <!-- Batch Processing Card -->
+        <div class="card">
+            <h2>Batch Processing</h2>
+            <p style="color:#555; font-size:0.9rem;">Upload up to 10 files (PDF, DOCX, TXT) to summarise them all at once.</p>
+            <form id="batch-form" enctype="multipart/form-data">
+                <label for="batch_files">Select files (max 10, each up to 10 MB)</label>
+                <input type="file" id="batch_files" name="files" accept=".pdf,.docx,.txt" multiple aria-describedby="batch-help">
+                <span id="batch-help" class="sr-only">Upload multiple PDF, DOCX, or TXT files for batch processing</span>
+
+                <label for="batch_summary_length">Summary length</label>
+                <select id="batch_summary_length" name="summary_length">
+                    <option value="short">Short</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="long">Long</option>
+                </select>
+
+                <button type="submit" id="batch-submit-btn">Batch Summarise</button>
+            </form>
+        </div>
+
         <!-- Loading spinner (hidden by default) -->
         <div id="loading" class="card" style="display:none; text-align:center;">
             <p><strong>Sending to Azure OpenAI&hellip;</strong></p>
@@ -133,6 +153,32 @@
 
         <!-- Dynamic result container -->
         <div id="result-container"></div>
+
+        <!-- Batch results (rendered server-side or via JS) -->
+        {% if batch_results %}
+        <div class="card" id="batch-results-section">
+            <h2>Batch Results</h2>
+            <p style="color:#555; font-size:0.9rem;">
+                {{ batch_results|selectattr('summary', 'defined')|rejectattr('error', 'defined')|list|length }} succeeded,
+                {{ batch_results|selectattr('error', 'defined')|list|length }} failed
+                of {{ batch_results|length }} file(s).
+            </p>
+            {% for item in batch_results %}
+            <div class="history-item">
+                <strong>{{ item.file }}</strong>
+                {% if item.error is defined %}
+                <div class="notification error" style="margin-top:0.4rem;" role="alert">{{ item.error }}</div>
+                {% else %}
+                <div class="summary-result" style="margin-top:0.4rem;">{{ item.summary }}</div>
+                <div class="history-meta">Length: {{ item.summary_length }} | {{ item.timestamp }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Dynamic batch result container (for JS-driven batch) -->
+        <div id="batch-result-container"></div>
 
         {% if history %}
         <div class="card" id="history-section">
@@ -246,6 +292,103 @@
             var d = document.createElement("div");
             d.appendChild(document.createTextNode(s));
             return d.innerHTML;
+        }
+
+        /* ---------------------------------------------------------------
+         * Batch Processing – handles multi-file upload via /api/summarize/batch
+         * --------------------------------------------------------------- */
+        const batchForm = document.getElementById("batch-form");
+        const batchResultContainer = document.getElementById("batch-result-container");
+        const batchSubmitBtn = document.getElementById("batch-submit-btn");
+
+        batchForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            batchResultContainer.innerHTML = "";
+            loading.style.display = "block";
+            batchSubmitBtn.disabled = true;
+            batchSubmitBtn.textContent = "Processing…";
+
+            const batchFiles = document.getElementById("batch_files").files;
+            const batchLength = document.getElementById("batch_summary_length").value;
+
+            if (!batchFiles || batchFiles.length === 0) {
+                showBatchError("Please select at least one file for batch processing.");
+                return;
+            }
+
+            if (batchFiles.length > 10) {
+                showBatchError("Batch processing is limited to 10 files per request. You selected " + batchFiles.length + ".");
+                return;
+            }
+
+            var fd = new FormData();
+            for (var i = 0; i < batchFiles.length; i++) {
+                fd.append("files", batchFiles[i]);
+            }
+            fd.append("summary_length", batchLength);
+
+            try {
+                var response = await fetch("/api/summarize/batch", { method: "POST", body: fd });
+                var data = await response.json();
+
+                if (!response.ok) {
+                    var msg = data.detail || data.error || "Batch processing failed.";
+                    showBatchError(msg);
+                    return;
+                }
+
+                showBatchResults(data);
+            } catch (err) {
+                if (err.name === "TypeError" || err.message.includes("Failed to fetch")) {
+                    showBatchError("Unable to reach the server. Please check your connection and try again.");
+                } else {
+                    showBatchError("Network error: " + err.message);
+                }
+            } finally {
+                loading.style.display = "none";
+                batchSubmitBtn.disabled = false;
+                batchSubmitBtn.textContent = "Batch Summarise";
+            }
+        });
+
+        function showBatchResults(data) {
+            var html = '<div class="card"><h2>Batch Results</h2>';
+            html += '<p style="color:#555; font-size:0.9rem;">' +
+                    escapeHtml(String(data.succeeded)) + ' succeeded, ' +
+                    escapeHtml(String(data.failed)) + ' failed of ' +
+                    escapeHtml(String(data.total)) + ' file(s).</p>';
+
+            if (data.succeeded > 0) {
+                html += '<div class="notification success" role="status">Batch processing completed!</div>';
+            }
+            if (data.failed > 0) {
+                html += '<div class="notification error" role="alert">Some files could not be processed. See details below.</div>';
+            }
+
+            for (var i = 0; i < data.results.length; i++) {
+                var r = data.results[i];
+                html += '<div class="history-item"><strong>' + escapeHtml(r.file) + '</strong>';
+                if (r.error) {
+                    html += '<div class="notification error" style="margin-top:0.4rem;" role="alert">' +
+                            escapeHtml(r.error) + '</div>';
+                } else {
+                    html += '<div class="summary-result" style="margin-top:0.4rem;">' +
+                            escapeHtml(r.summary) + '</div>' +
+                            '<div class="history-meta">Length: ' + escapeHtml(r.summary_length) +
+                            ' | ' + escapeHtml(r.timestamp) + '</div>';
+                }
+                html += '</div>';
+            }
+            html += '</div>';
+            batchResultContainer.innerHTML = html;
+        }
+
+        function showBatchError(msg) {
+            batchResultContainer.innerHTML =
+                '<div class="notification error" role="alert">' + escapeHtml(msg) + '</div>';
+            loading.style.display = "none";
+            batchSubmitBtn.disabled = false;
+            batchSubmitBtn.textContent = "Batch Summarise";
         }
     })();
     </script>

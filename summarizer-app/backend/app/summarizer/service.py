@@ -24,7 +24,7 @@ from backend.app.errors import (
     SummarizationError,
     URLFetchError,
 )
-from backend.app.logger import get_logger
+from backend.app.logger import get_logger, audit_log
 from backend.app.summarizer.engine import summarize_text
 from backend.app.summarizer.utils import extract_text_from_file, extract_text_from_url
 
@@ -195,30 +195,102 @@ async def summarize_batch(
     """Batch-summarise a list of (filename, contents) tuples.
 
     Returns a list of result dicts – each has either a summary or an error key.
+    All actions and errors are logged with timestamp, user_id, action, and
+    error details for audit and debugging.
     """
-    if len(files) > config.MAX_BATCH_FILES:
+    file_count = len(files)
+    filenames = [f[0] for f in files]
+
+    audit_log(
+        action="batch_start",
+        user_id=user_id,
+        details=f"file_count={file_count}, files={filenames}, summary_length={summary_length}",
+    )
+
+    if file_count > config.MAX_BATCH_FILES:
+        audit_log(
+            action="batch_rejected",
+            user_id=user_id,
+            error=f"Batch limit exceeded: {file_count} files submitted, max is {config.MAX_BATCH_FILES}.",
+            level="WARNING",
+        )
         raise BatchLimitError()
 
     results: list[dict] = []
-    for filename, contents in files:
+    success_count = 0
+    error_count = 0
+
+    for idx, (filename, contents) in enumerate(files, start=1):
+        audit_log(
+            action="batch_file_process",
+            user_id=user_id,
+            details=f"file={filename}, index={idx}/{file_count}, size_bytes={len(contents)}",
+        )
         try:
             result = await summarize_from_file(filename, contents, summary_length, user_id)
             result["file"] = filename
             results.append(result)
+            success_count += 1
+            audit_log(
+                action="batch_file_success",
+                user_id=user_id,
+                details=f"file={filename}, index={idx}/{file_count}",
+            )
         except FileSizeError:
+            error_msg = "File exceeds 10 MB limit."
             logger.warning(f"Service: batch – file '{filename}' exceeds size limit – user={user_id}")
-            results.append({"file": filename, "error": "File exceeds 10 MB limit."})
+            audit_log(
+                action="batch_file_error",
+                user_id=user_id,
+                error=f"file={filename}: {error_msg}",
+                level="WARNING",
+            )
+            results.append({"file": filename, "error": error_msg})
+            error_count += 1
         except FileFormatError as exc:
             logger.warning(f"Service: batch – unsupported file '{filename}' – user={user_id}: {exc}")
+            audit_log(
+                action="batch_file_error",
+                user_id=user_id,
+                error=f"file={filename}: {exc.message}",
+                level="WARNING",
+            )
             results.append({"file": filename, "error": str(exc.message)})
+            error_count += 1
         except SummarizationError as exc:
             logger.error(f"Service: batch – summarisation failed for '{filename}' – user={user_id}: {exc}")
+            audit_log(
+                action="batch_file_error",
+                user_id=user_id,
+                error=f"file={filename}: {exc.message}",
+                level="ERROR",
+            )
             results.append({"file": filename, "error": str(exc.message)})
+            error_count += 1
         except Exception as exc:
+            friendly = f"Failed to process '{filename}'. Please try again."
             logger.error(f"Service: batch – unexpected error for '{filename}' – user={user_id}: {exc}")
-            results.append({"file": filename, "error": f"Failed to process '{filename}'. Please try again."})
+            audit_log(
+                action="batch_file_error",
+                user_id=user_id,
+                error=f"file={filename}: {type(exc).__name__}: {exc}",
+                level="ERROR",
+            )
+            results.append({"file": filename, "error": friendly})
+            error_count += 1
 
-    logger.info(f"Service: batch of {len(files)} files processed – user={user_id}")
+    audit_log(
+        action="batch_complete",
+        user_id=user_id,
+        details=(
+            f"file_count={file_count}, success={success_count}, "
+            f"errors={error_count}, summary_length={summary_length}"
+        ),
+    )
+    logger.info(
+        f"Service: batch of {file_count} files processed – "
+        f"success={success_count}, errors={error_count} – user={user_id}"
+    )
     return results
 
 

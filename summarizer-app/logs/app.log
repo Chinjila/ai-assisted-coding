@@ -181,3 +181,459 @@
 2026-03-02 17:09:57 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
 2026-03-02 17:10:03 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
 2026-03-02 17:10:03 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 18:10:42 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 18:10:42 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.774944Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.775468Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.870069Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['good.txt', 'bad.png'], summary_length=short
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.870594Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=1, failed=1
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.930792Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:10:42 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:10:42 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:42.931552Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:10:42.976335Z | user_id=testuser | action=api_batch_request | details=file_count=1, files=['a.txt'], summary_length=short
+2026-03-02 18:10:42 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:10:42.976895Z | user_id=testuser | action=api_batch_response | details=total=1, succeeded=1, failed=0
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:43.193062Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['bad1.png', 'bad2.bmp'], summary_length=short
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:10:43.193585Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=0, failed=2
+2026-03-02 18:10:43 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.368229Z | user_id=ui_user | action=ui_batch_request | details=file_count=1, summary_length=short
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.368713Z | user_id=ui_user | action=ui_batch_complete | details=total=1, succeeded=1, failed=0
+2026-03-02 18:10:43 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 0 failed, length=short
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.845005Z | user_id=ui_user | action=ui_batch_request | details=file_count=11, summary_length=short
+2026-03-02 18:10:43 | ERROR    | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.847156Z | user_id=ui_user | action=ui_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:10:43 | ERROR    | backend.app.ui:ui_batch_upload:184 | user=system | UI batch error: Batch processing limit is 10 files per request.
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.857304Z | user_id=ui_user | action=ui_batch_request | details=file_count=2, summary_length=short
+2026-03-02 18:10:43 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:10:43.857825Z | user_id=ui_user | action=ui_batch_complete | details=total=2, succeeded=1, failed=1
+2026-03-02 18:10:43 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 1 failed, length=short
+2026-03-02 18:11:14 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 18:11:14 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.385678Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.386164Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.397487Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['good.txt', 'bad.png'], summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.398013Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.411550Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:11:14 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:14 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.412256Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:14.425134Z | user_id=testuser | action=api_batch_request | details=file_count=1, files=['a.txt'], summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:14.425621Z | user_id=testuser | action=api_batch_response | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.435013Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['bad1.png', 'bad2.bmp'], summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:14.435478Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=0, failed=2
+2026-03-02 18:11:14 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=1, errors=0 – user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=anonymous
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=anonymous
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=anonymous
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='good.txt', length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'good.txt' summarised – length=short, user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='bad.png', length=short, user=u1
+2026-03-02 18:11:14 | WARNING  | backend.app.summarizer.service:summarize_batch:251 | user=system | Service: batch – unsupported file 'bad.png' – user=u1: Unsupported file format: .png
+2026-03-02 18:11:14 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=1, errors=1 – user=u1
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.528744Z | user_id=ui_user | action=ui_batch_request | details=file_count=1, summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.529346Z | user_id=ui_user | action=ui_batch_complete | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:14 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 0 failed, length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.575227Z | user_id=ui_user | action=ui_batch_request | details=file_count=11, summary_length=short
+2026-03-02 18:11:14 | ERROR    | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.575792Z | user_id=ui_user | action=ui_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:14 | ERROR    | backend.app.ui:ui_batch_upload:184 | user=system | UI batch error: Batch processing limit is 10 files per request.
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.600755Z | user_id=ui_user | action=ui_batch_request | details=file_count=2, summary_length=short
+2026-03-02 18:11:14 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:14.601476Z | user_id=ui_user | action=ui_batch_complete | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:14 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 1 failed, length=short
+2026-03-02 18:11:26 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 18:11:26 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 18:11:26 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 18:11:26 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 18:11:26 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:26.941827Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['file1.txt', 'file2.txt'], summary_length=short
+2026-03-02 18:11:26 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:26.942261Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:11:26 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:26.954203Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:11:26 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:26 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:26.955313Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:26 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 18:11:26 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 18:11:26 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.017284Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.017864Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.027347Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['good.txt', 'bad.png'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.027814Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.040004Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:11:27 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:27 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.040633Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:27.049753Z | user_id=testuser | action=api_batch_request | details=file_count=1, files=['a.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:27.050185Z | user_id=testuser | action=api_batch_response | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.059002Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['bad1.png', 'bad2.bmp'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.059396Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=0, failed=2
+2026-03-02 18:11:27 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=1, errors=0 – user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='good.txt', length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'good.txt' summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='bad.png', length=short, user=u1
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.service:summarize_batch:251 | user=system | Service: batch – unsupported file 'bad.png' – user=u1: Unsupported file format: .png
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=1, errors=1 – user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.152998Z | user_id=ui_user | action=ui_batch_request | details=file_count=1, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.153519Z | user_id=ui_user | action=ui_batch_complete | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:27 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 0 failed, length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.200858Z | user_id=ui_user | action=ui_batch_request | details=file_count=11, summary_length=short
+2026-03-02 18:11:27 | ERROR    | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.201592Z | user_id=ui_user | action=ui_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:27 | ERROR    | backend.app.ui:ui_batch_upload:184 | user=system | UI batch error: Batch processing limit is 10 files per request.
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.213818Z | user_id=ui_user | action=ui_batch_request | details=file_count=2, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:27.214249Z | user_id=ui_user | action=ui_batch_complete | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:27 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 1 failed, length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=medium, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=medium, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_text:106 | user=system | Service: unexpected error during text summarisation – user=anonymous: kaboom
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://example.com', length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:147 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=u2
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:147 | user=system | Service: URL summarised – length=short, user=u2
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://bad.url', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://bad.url', length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_url:130 | user=system | Service: failed to fetch URL 'https://bad.url' – user=anonymous: DNS failure
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='notes.txt', length=short, user=u3
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'notes.txt' summarised – length=short, user=u3
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='report.pdf', length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'report.pdf' summarised – length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='doc.docx', length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'doc.docx' summarised – length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='image.png', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='big.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='corrupt.pdf', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='report.pdf', length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_file:167 | user=system | Service: failed to extract text from 'report.pdf' – user=anonymous: out of memory
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=u4
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'f.txt' summarised – length=short, user=u4
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=tiny, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=huge, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=medium, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.468537Z | user_id=anonymous | action=batch_start | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.468877Z | user_id=anonymous | action=batch_file_process | details=file=a.txt, index=1/2, size_bytes=1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.469501Z | user_id=anonymous | action=batch_file_success | details=file=a.txt, index=1/2
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.469668Z | user_id=anonymous | action=batch_file_process | details=file=b.txt, index=2/2, size_bytes=1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.470191Z | user_id=anonymous | action=batch_file_success | details=file=b.txt, index=2/2
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.470351Z | user_id=anonymous | action=batch_complete | details=file_count=2, success=2, errors=0, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.474225Z | user_id=anonymous | action=batch_start | details=file_count=11, files=['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt', 'f4.txt', 'f5.txt', 'f6.txt', 'f7.txt', 'f8.txt', 'f9.txt', 'f10.txt'], summary_length=short
+2026-03-02 18:11:27 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.474518Z | user_id=anonymous | action=batch_rejected | error=Batch limit exceeded: 11 files submitted, max is 10.
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.478699Z | user_id=anonymous | action=batch_start | details=file_count=3, files=['good.txt', 'bad.png', 'also_good.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.479017Z | user_id=anonymous | action=batch_file_process | details=file=good.txt, index=1/3, size_bytes=2
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='good.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'good.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.479563Z | user_id=anonymous | action=batch_file_success | details=file=good.txt, index=1/3
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.479702Z | user_id=anonymous | action=batch_file_process | details=file=bad.png, index=2/3, size_bytes=4
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='bad.png', length=short, user=anonymous
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.service:summarize_batch:251 | user=system | Service: batch – unsupported file 'bad.png' – user=anonymous: Unsupported file format: .png
+2026-03-02 18:11:27 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.480167Z | user_id=anonymous | action=batch_file_error | error=file=bad.png: Unsupported file format: .png
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.480317Z | user_id=anonymous | action=batch_file_process | details=file=also_good.txt, index=3/3, size_bytes=2
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='also_good.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'also_good.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.480820Z | user_id=anonymous | action=batch_file_success | details=file=also_good.txt, index=3/3
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.480962Z | user_id=anonymous | action=batch_complete | details=file_count=3, success=2, errors=1, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 3 files processed – success=2, errors=1 – user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.488249Z | user_id=anonymous | action=batch_start | details=file_count=1, files=['big.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.488615Z | user_id=anonymous | action=batch_file_process | details=file=big.txt, index=1/1, size_bytes=11534336
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='big.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.service:summarize_batch:241 | user=system | Service: batch – file 'big.txt' exceeds size limit – user=anonymous
+2026-03-02 18:11:27 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.489150Z | user_id=anonymous | action=batch_file_error | error=file=big.txt: File exceeds 10 MB limit.
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.489317Z | user_id=anonymous | action=batch_complete | details=file_count=1, success=0, errors=1, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=0, errors=1 – user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.494797Z | user_id=batch_user | action=batch_start | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.495119Z | user_id=batch_user | action=batch_file_process | details=file=a.txt, index=1/2, size_bytes=1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=batch_user
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=batch_user
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.495729Z | user_id=batch_user | action=batch_file_success | details=file=a.txt, index=1/2
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.495913Z | user_id=batch_user | action=batch_file_process | details=file=b.txt, index=2/2, size_bytes=1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=batch_user
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=batch_user
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.496453Z | user_id=batch_user | action=batch_file_success | details=file=b.txt, index=2/2
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:27.496626Z | user_id=batch_user | action=batch_complete | details=file_count=2, success=2, errors=0, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=batch_user
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.501692Z | user_id=anonymous | action=batch_start | details=file_count=1, files=['f.txt'], summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.502169Z | user_id=anonymous | action=batch_file_process | details=file=f.txt, index=1/1, size_bytes=1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_batch:261 | user=system | Service: batch – summarisation failed for 'f.txt' – user=anonymous: temporarily unavailable
+2026-03-02 18:11:27 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.502785Z | user_id=anonymous | action=batch_file_error | error=file=f.txt: temporarily unavailable
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.502958Z | user_id=anonymous | action=batch_complete | details=file_count=1, success=0, errors=1, summary_length=short
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=0, errors=1 – user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=alice
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=bob
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=bob
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=alice
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=u1
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=xxx, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.561680Z | user_id=anonymous | action=batch_start | details=file_count=11, files=['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt', 'f4.txt', 'f5.txt', 'f6.txt', 'f7.txt', 'f8.txt', 'f9.txt', 'f10.txt'], summary_length=short
+2026-03-02 18:11:27 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:27.562012Z | user_id=anonymous | action=batch_rejected | error=Batch limit exceeded: 11 files submitted, max is 10.
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='img.bmp', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_text:106 | user=system | Service: unexpected error during text summarisation – user=anonymous: segfault
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_url:141 | user=system | Service: unexpected error summarising URL 'https://x.com' – user=anonymous: segfault
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.service:summarize_from_file:178 | user=system | Service: unexpected error summarising file 'f.txt' – user=anonymous: segfault
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=22
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:110 | user=system | Summarisation completed – length=short, output_chars=17
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=0
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=3
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:110 | user=system | Summarisation completed – length=short, output_chars=21 (after 2 attempt(s))
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=9
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 2/3): APIConnectionError: Connection error. – retrying in 2.0s
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 3/3): APIConnectionError: Connection error. – retrying in 4.0s
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.engine:summarize_text:155 | user=system | All 3 Azure OpenAI attempts failed. Last error: APIConnectionError: Connection error.
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.engine:summarize_text:131 | user=system | Azure OpenAI authentication failed: Invalid API key
+2026-03-02 18:11:27 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APITimeoutError: Request timed out. – retrying in 1.0s
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
+2026-03-02 18:11:27 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
+2026-03-02 18:11:27 | ERROR    | backend.app.summarizer.engine:summarize_text:155 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.
+2026-03-02 18:11:50 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 18:11:50 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 18:11:50 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.274955Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['file1.txt', 'file2.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.275263Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.280941Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.281379Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.316552Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.317024Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=2, failed=0
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.324100Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['good.txt', 'bad.png'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.324575Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.333429Z | user_id=anonymous | action=api_batch_request | details=file_count=11, files=['file0.txt', 'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt', 'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'], summary_length=short
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.334086Z | user_id=anonymous | action=api_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:50.341727Z | user_id=testuser | action=api_batch_request | details=file_count=1, files=['a.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=testuser | AUDIT | timestamp=2026-03-02T18:11:50.342208Z | user_id=testuser | action=api_batch_response | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.348737Z | user_id=anonymous | action=api_batch_request | details=file_count=2, files=['bad1.png', 'bad2.bmp'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.349193Z | user_id=anonymous | action=api_batch_response | details=total=2, succeeded=0, failed=2
+2026-03-02 18:11:50 | ERROR    | backend.app.api:summarize_batch:169 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=1, errors=0 – user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='good.txt', length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'good.txt' summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='bad.png', length=short, user=u1
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.service:summarize_batch:251 | user=system | Service: batch – unsupported file 'bad.png' – user=u1: Unsupported file format: .png
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=1, errors=1 – user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.395156Z | user_id=ui_user | action=ui_batch_request | details=file_count=1, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.395459Z | user_id=ui_user | action=ui_batch_complete | details=total=1, succeeded=1, failed=0
+2026-03-02 18:11:50 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 0 failed, length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.415221Z | user_id=ui_user | action=ui_batch_request | details=file_count=11, summary_length=short
+2026-03-02 18:11:50 | ERROR    | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.415531Z | user_id=ui_user | action=ui_batch_error | error=Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | ERROR    | backend.app.ui:ui_batch_upload:184 | user=system | UI batch error: Batch processing limit is 10 files per request.
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.420786Z | user_id=ui_user | action=ui_batch_request | details=file_count=2, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=ui_user | AUDIT | timestamp=2026-03-02T18:11:50.421099Z | user_id=ui_user | action=ui_batch_complete | details=total=2, succeeded=1, failed=1
+2026-03-02 18:11:50 | INFO     | backend.app.ui:ui_batch_upload:172 | user=system | UI batch completed – 1 succeeded, 1 failed, length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=medium, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=medium, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_text:106 | user=system | Service: unexpected error during text summarisation – user=anonymous: kaboom
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://example.com', length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:147 | user=system | Service: URL summarised – length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=u2
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:147 | user=system | Service: URL summarised – length=short, user=u2
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://bad.url', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://bad.url', length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_url:130 | user=system | Service: failed to fetch URL 'https://bad.url' – user=anonymous: DNS failure
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='notes.txt', length=short, user=u3
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'notes.txt' summarised – length=short, user=u3
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='report.pdf', length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'report.pdf' summarised – length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='doc.docx', length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'doc.docx' summarised – length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='image.png', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='big.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='corrupt.pdf', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='report.pdf', length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_file:167 | user=system | Service: failed to extract text from 'report.pdf' – user=anonymous: out of memory
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=u4
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'f.txt' summarised – length=short, user=u4
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=tiny, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=huge, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=medium, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.559697Z | user_id=anonymous | action=batch_start | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.559919Z | user_id=anonymous | action=batch_file_process | details=file=a.txt, index=1/2, size_bytes=1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.560392Z | user_id=anonymous | action=batch_file_success | details=file=a.txt, index=1/2
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.560508Z | user_id=anonymous | action=batch_file_process | details=file=b.txt, index=2/2, size_bytes=1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.560815Z | user_id=anonymous | action=batch_file_success | details=file=b.txt, index=2/2
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.560906Z | user_id=anonymous | action=batch_complete | details=file_count=2, success=2, errors=0, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.563638Z | user_id=anonymous | action=batch_start | details=file_count=11, files=['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt', 'f4.txt', 'f5.txt', 'f6.txt', 'f7.txt', 'f8.txt', 'f9.txt', 'f10.txt'], summary_length=short
+2026-03-02 18:11:50 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.563856Z | user_id=anonymous | action=batch_rejected | error=Batch limit exceeded: 11 files submitted, max is 10.
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.568444Z | user_id=anonymous | action=batch_start | details=file_count=3, files=['good.txt', 'bad.png', 'also_good.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.568670Z | user_id=anonymous | action=batch_file_process | details=file=good.txt, index=1/3, size_bytes=2
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='good.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'good.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569058Z | user_id=anonymous | action=batch_file_success | details=file=good.txt, index=1/3
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569189Z | user_id=anonymous | action=batch_file_process | details=file=bad.png, index=2/3, size_bytes=4
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='bad.png', length=short, user=anonymous
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.service:summarize_batch:251 | user=system | Service: batch – unsupported file 'bad.png' – user=anonymous: Unsupported file format: .png
+2026-03-02 18:11:50 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569492Z | user_id=anonymous | action=batch_file_error | error=file=bad.png: Unsupported file format: .png
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569589Z | user_id=anonymous | action=batch_file_process | details=file=also_good.txt, index=3/3, size_bytes=2
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='also_good.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'also_good.txt' summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569894Z | user_id=anonymous | action=batch_file_success | details=file=also_good.txt, index=3/3
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.569988Z | user_id=anonymous | action=batch_complete | details=file_count=3, success=2, errors=1, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 3 files processed – success=2, errors=1 – user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.575650Z | user_id=anonymous | action=batch_start | details=file_count=1, files=['big.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.575897Z | user_id=anonymous | action=batch_file_process | details=file=big.txt, index=1/1, size_bytes=11534336
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='big.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.service:summarize_batch:241 | user=system | Service: batch – file 'big.txt' exceeds size limit – user=anonymous
+2026-03-02 18:11:50 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.576249Z | user_id=anonymous | action=batch_file_error | error=file=big.txt: File exceeds 10 MB limit.
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.576358Z | user_id=anonymous | action=batch_complete | details=file_count=1, success=0, errors=1, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=0, errors=1 – user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.580386Z | user_id=batch_user | action=batch_start | details=file_count=2, files=['a.txt', 'b.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.580615Z | user_id=batch_user | action=batch_file_process | details=file=a.txt, index=1/2, size_bytes=1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='a.txt', length=short, user=batch_user
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'a.txt' summarised – length=short, user=batch_user
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.581010Z | user_id=batch_user | action=batch_file_success | details=file=a.txt, index=1/2
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.581115Z | user_id=batch_user | action=batch_file_process | details=file=b.txt, index=2/2, size_bytes=1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='b.txt', length=short, user=batch_user
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:186 | user=system | Service: file 'b.txt' summarised – length=short, user=batch_user
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.581446Z | user_id=batch_user | action=batch_file_success | details=file=b.txt, index=2/2
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=batch_user | AUDIT | timestamp=2026-03-02T18:11:50.581544Z | user_id=batch_user | action=batch_complete | details=file_count=2, success=2, errors=0, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 2 files processed – success=2, errors=0 – user=batch_user
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.585156Z | user_id=anonymous | action=batch_start | details=file_count=1, files=['f.txt'], summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.585381Z | user_id=anonymous | action=batch_file_process | details=file=f.txt, index=1/1, size_bytes=1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_batch:261 | user=system | Service: batch – summarisation failed for 'f.txt' – user=anonymous: temporarily unavailable
+2026-03-02 18:11:50 | ERROR    | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.585748Z | user_id=anonymous | action=batch_file_error | error=file=f.txt: temporarily unavailable
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.585851Z | user_id=anonymous | action=batch_complete | details=file_count=1, success=0, errors=1, summary_length=short
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_batch:290 | user=system | Service: batch of 1 files processed – success=0, errors=1 – user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=alice
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=bob
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=bob
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=alice
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=alice
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=u1
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=xxx, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.612723Z | user_id=anonymous | action=batch_start | details=file_count=11, files=['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt', 'f4.txt', 'f5.txt', 'f6.txt', 'f7.txt', 'f8.txt', 'f9.txt', 'f10.txt'], summary_length=short
+2026-03-02 18:11:50 | WARNING  | backend.app.logger:audit_log:79 | user=anonymous | AUDIT | timestamp=2026-03-02T18:11:50.612987Z | user_id=anonymous | action=batch_rejected | error=Batch limit exceeded: 11 files submitted, max is 10.
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='img.bmp', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_text:106 | user=system | Service: unexpected error during text summarisation – user=anonymous: segfault
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_url:122 | user=system | Service: summarize_from_url called – url='https://x.com', length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_url:141 | user=system | Service: unexpected error summarising URL 'https://x.com' – user=anonymous: segfault
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.service:summarize_from_file:158 | user=system | Service: summarize_from_file called – file='f.txt', length=short, user=anonymous
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.service:summarize_from_file:178 | user=system | Service: unexpected error summarising file 'f.txt' – user=anonymous: segfault
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=22
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:110 | user=system | Summarisation completed – length=short, output_chars=17
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=0
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=3
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:110 | user=system | Summarisation completed – length=short, output_chars=21 (after 2 attempt(s))
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=medium, input_chars=9
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APIConnectionError: Connection error. – retrying in 1.0s
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 2/3): APIConnectionError: Connection error. – retrying in 2.0s
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 3/3): APIConnectionError: Connection error. – retrying in 4.0s
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.engine:summarize_text:155 | user=system | All 3 Azure OpenAI attempts failed. Last error: APIConnectionError: Connection error.
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.engine:summarize_text:131 | user=system | Azure OpenAI authentication failed: Invalid API key
+2026-03-02 18:11:50 | INFO     | backend.app.summarizer.engine:summarize_text:89 | user=system | Summarisation started – length=short, input_chars=9
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 1/3): APITimeoutError: Request timed out. – retrying in 1.0s
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 2/3): APITimeoutError: Request timed out. – retrying in 2.0s
+2026-03-02 18:11:50 | WARNING  | backend.app.summarizer.engine:summarize_text:123 | user=system | Azure OpenAI transient error (attempt 3/3): APITimeoutError: Request timed out. – retrying in 4.0s
+2026-03-02 18:11:50 | ERROR    | backend.app.summarizer.engine:summarize_text:155 | user=system | All 3 Azure OpenAI attempts failed. Last error: APITimeoutError: Request timed out.

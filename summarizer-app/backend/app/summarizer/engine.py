@@ -46,13 +46,32 @@ def _get_client() -> AsyncAzureOpenAI:
     )
 
 
-async def summarize_text(text: str, summary_length: str = "medium") -> str:
+def _build_messages(input_text: str, summary_length: str) -> list[dict]:
+    """Build the chat messages list for the Azure OpenAI completion request.
+
+    Encapsulates prompt construction so that `summarize_text` stays focused
+    on the retry/call lifecycle.
     """
-    Summarise *text* using Azure OpenAI with retry + exponential backoff.
+    length_prompt = config.SUMMARY_LENGTH_PROMPTS.get(
+        summary_length, config.SUMMARY_LENGTH_PROMPTS["medium"]
+    )
+    system_message = (
+        "You are a helpful assistant that summarises documents. "
+        f"{length_prompt}"
+    )
+    return [
+        {"role": "system", "content": system_message},
+        {"role": "user", "content": f"Please summarise the following text:\n\n{input_text}"},
+    ]
+
+
+async def summarize_text(input_text: str, summary_length: str = "medium") -> str:
+    """
+    Summarise *input_text* using Azure OpenAI with retry + exponential backoff.
 
     Parameters
     ----------
-    text : str
+    input_text : str
         The input text to summarise.
     summary_length : str
         One of 'short', 'medium', or 'long'.
@@ -67,18 +86,15 @@ async def summarize_text(text: str, summary_length: str = "medium") -> str:
     SummarizationError
         With a user-friendly message describing what went wrong.
     """
-    if not text or not text.strip():
+    logger.info(
+        f"Summarisation started – length={summary_length}, "
+        f"input_chars={len(input_text)}"
+    )
+
+    if not input_text or not input_text.strip():
         raise SummarizationError("No text provided for summarisation.")
 
-    length_prompt = config.SUMMARY_LENGTH_PROMPTS.get(
-        summary_length, config.SUMMARY_LENGTH_PROMPTS["medium"]
-    )
-
-    system_message = (
-        "You are a helpful assistant that summarises documents. "
-        f"{length_prompt}"
-    )
-
+    messages = _build_messages(input_text, summary_length)
     client = _get_client()
     last_exception: Exception | None = None
 
@@ -86,19 +102,17 @@ async def summarize_text(text: str, summary_length: str = "medium") -> str:
         try:
             response = await client.chat.completions.create(
                 model=config.AZURE_OPENAI_DEPLOYMENT,
-                messages=[
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": f"Please summarise the following text:\n\n{text}"},
-                ],
+                messages=messages,
                 temperature=0.3,
                 max_tokens=_max_tokens_for_length(summary_length),
             )
-            summary = response.choices[0].message.content.strip()
+            summary_result = response.choices[0].message.content.strip()
             logger.info(
-                f"Summary generated – length={summary_length}, chars={len(summary)}"
+                f"Summarisation completed – length={summary_length}, "
+                f"output_chars={len(summary_result)}"
                 + (f" (after {attempt} attempt(s))" if attempt > 1 else "")
             )
-            return summary
+            return summary_result
 
         except _RETRYABLE_EXCEPTIONS as exc:
             last_exception = exc
@@ -129,7 +143,9 @@ async def summarize_text(text: str, summary_length: str = "medium") -> str:
             )
 
         except Exception as exc:
-            logger.error(f"Unexpected error during summarisation: {type(exc).__name__}: {exc}")
+            logger.error(
+                f"Unexpected error during summarisation: {type(exc).__name__}: {exc}"
+            )
             raise SummarizationError(
                 "An unexpected error occurred while generating the summary. "
                 "Please try again later."

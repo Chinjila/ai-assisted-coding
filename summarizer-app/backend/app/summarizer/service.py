@@ -67,6 +67,21 @@ def clear_history() -> None:
     _summary_history.clear()
 
 
+def _build_result(
+    summary_result: str,
+    summary_length: str,
+    user_id: str,
+) -> dict:
+    """Create a standardised result dict and record history."""
+    timestamp = datetime.utcnow().isoformat()
+    _record_history(user_id, summary_result, summary_length, timestamp)
+    return {
+        "summary": summary_result,
+        "summary_length": summary_length,
+        "timestamp": timestamp,
+    }
+
+
 # ---------------------------------------------------------------------------
 # Core service methods
 # ---------------------------------------------------------------------------
@@ -80,10 +95,11 @@ async def summarize_from_text(
 
     Returns a dict with keys: summary, summary_length, timestamp.
     """
+    logger.info(f"Service: summarize_from_text called – length={summary_length}, user={user_id}")
     _validate_summary_length(summary_length)
 
     try:
-        summary = await summarize_text(text, summary_length)
+        summary_result = await summarize_text(text, summary_length)
     except SummarizationError:
         raise  # already user-friendly
     except Exception as exc:
@@ -92,11 +108,9 @@ async def summarize_from_text(
             "Something went wrong while summarising your text. Please try again."
         )
 
-    timestamp = datetime.utcnow().isoformat()
-    _record_history(user_id, summary, summary_length, timestamp)
+    result = _build_result(summary_result, summary_length, user_id)
     logger.info(f"Service: text summarised – length={summary_length}, user={user_id}")
-
-    return {"summary": summary, "summary_length": summary_length, "timestamp": timestamp}
+    return result
 
 
 async def summarize_from_url(
@@ -105,10 +119,11 @@ async def summarize_from_url(
     user_id: str = "anonymous",
 ) -> dict:
     """Fetch a web page, extract its text, and summarise it."""
+    logger.info(f"Service: summarize_from_url called – url='{url}', length={summary_length}, user={user_id}")
     _validate_summary_length(summary_length)
 
     try:
-        text = extract_text_from_url(url)
+        extracted_text = extract_text_from_url(url)
     except URLFetchError:
         raise  # already user-friendly
     except Exception as exc:
@@ -119,7 +134,7 @@ async def summarize_from_url(
         )
 
     try:
-        summary = await summarize_text(text, summary_length)
+        summary_result = await summarize_text(extracted_text, summary_length)
     except SummarizationError:
         raise
     except Exception as exc:
@@ -128,11 +143,9 @@ async def summarize_from_url(
             "Something went wrong while summarising the web page. Please try again."
         )
 
-    timestamp = datetime.utcnow().isoformat()
-    _record_history(user_id, summary, summary_length, timestamp)
+    result = _build_result(summary_result, summary_length, user_id)
     logger.info(f"Service: URL summarised – length={summary_length}, user={user_id}")
-
-    return {"summary": summary, "summary_length": summary_length, "timestamp": timestamp}
+    return result
 
 
 async def summarize_from_file(
@@ -142,11 +155,12 @@ async def summarize_from_file(
     user_id: str = "anonymous",
 ) -> dict:
     """Validate file size, extract text, and summarise a single file."""
+    logger.info(f"Service: summarize_from_file called – file='{filename}', length={summary_length}, user={user_id}")
     _validate_summary_length(summary_length)
     _validate_file_size(contents)
 
     try:
-        text = extract_text_from_file(filename, contents)
+        extracted_text = extract_text_from_file(filename, contents)
     except FileFormatError:
         raise  # already user-friendly
     except Exception as exc:
@@ -157,7 +171,7 @@ async def summarize_from_file(
         )
 
     try:
-        summary = await summarize_text(text, summary_length)
+        summary_result = await summarize_text(extracted_text, summary_length)
     except SummarizationError:
         raise
     except Exception as exc:
@@ -168,11 +182,9 @@ async def summarize_from_file(
             f"Something went wrong while summarising '{filename}'. Please try again."
         )
 
-    timestamp = datetime.utcnow().isoformat()
-    _record_history(user_id, summary, summary_length, timestamp)
+    result = _build_result(summary_result, summary_length, user_id)
     logger.info(f"Service: file '{filename}' summarised – length={summary_length}, user={user_id}")
-
-    return {"summary": summary, "summary_length": summary_length, "timestamp": timestamp}
+    return result
 
 
 async def summarize_batch(

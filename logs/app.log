@@ -1,0 +1,32 @@
+2026-03-02 17:52:29 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 17:52:29 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 17:52:30 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 17:52:30 | ERROR    | backend.app.api:summarize_batch:155 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 17:52:30 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 17:52:30 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 17:52:30 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 17:52:30 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com
+2026-03-02 17:53:11 | INFO     | backend.app.main:<module>:21 | user=system | Azure OpenAI configuration OK.
+2026-03-02 17:53:11 | INFO     | backend.app.main:<module>:39 | user=system | GenAIsummarizer application started.
+2026-03-02 17:53:11 | INFO     | backend.app.api:get_token:84 | user=system | Token issued for user: testuser
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=extra_long, user=anonymous
+2026-03-02 17:53:11 | ERROR    | backend.app.api:summarize_batch:155 | user=system | API /summarize/batch failed: Batch processing limit is 10 files per request.
+2026-03-02 17:53:11 | ERROR    | backend.app.api:summarize_plain_text:98 | user=system | API /summarize/text failed: The summarisation service is temporarily unavailable after 3 attempts. Please try again in a few moments.
+2026-03-02 17:53:11 | ERROR    | backend.app.api:summarize_url:113 | user=system | API /summarize/url failed: Could not retrieve content from 'https://bad.url'. Please check the URL and try again.
+2026-03-02 17:53:11 | ERROR    | backend.app.api:summarize_file:134 | user=system | API /summarize/file failed: Could not read the file 'image.png'. Please ensure it is a valid PDF, DOCX, or TXT file.
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=short, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=short, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:98 | user=system | Service: summarize_from_text called – length=long, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.service:summarize_from_text:112 | user=system | Service: text summarised – length=long, user=anonymous
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://example.com
+2026-03-02 17:53:11 | INFO     | backend.app.summarizer.utils:extract_text_from_url:38 | user=system | Fetching URL: https://invalid-url.com

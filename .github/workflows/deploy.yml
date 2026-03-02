@@ -48,4 +48,4 @@ jobs:
           az webapp config set \
             --name ${{ secrets.AZURE_WEBAPP_NAME }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --startup-file startup.sh
+            --startup-file summarizer-app/startup.sh

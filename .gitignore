@@ -1,1 +1,10 @@
 summarizer-app/logs/app.log
+
+# Environment files with secrets
+.env
+summarizer-app/.env
+
+# Virtual environments
+venv/
+.venv/
+summarizer-app/venv/
